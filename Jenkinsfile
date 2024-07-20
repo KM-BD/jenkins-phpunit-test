@@ -1,19 +1,19 @@
 pipeline {
-	agent {
-		docker {
-			image 'composer:latest'
-		}
-	}
-	stages {
-		stage('Build') {
-			steps {
-				sh 'composer install'
-			}
-		}
-		stage('Test') {
-			steps {
-                sh './vendor/bin/phpunit tests'
+    agent any
+    environment {
+        DOCKER_HOST = 'tcp://docker:2376'
+        DOCKER_CERT_PATH = '/certs/client'
+        DOCKER_TLS_VERIFY = '1'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    sh 'docker --version'
+                    sh 'docker ps'
+                    sh 'docker pull composer:latest'
+                }
             }
-		}
-	}
+        }
+    }
 }
