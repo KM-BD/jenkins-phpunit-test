@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'composer:latest'
-        }
-    }
+    agent any
 	environment {
         DOCKER_HOST = 'tcp://host.docker.internal:2375'
     }
