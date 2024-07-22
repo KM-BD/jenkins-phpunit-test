@@ -1,8 +1,9 @@
 pipeline {
-	agent any
-	environment {
-        DOCKER_HOST = 'tcp://host.docker.internal:2375'
-    }
+	agent {
+		docker {
+			image 'composer:latest'
+		}
+	}
 	stages {
 		stage('Build') {
 			steps {
